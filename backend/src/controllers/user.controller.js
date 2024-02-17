@@ -34,6 +34,26 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+function bubbleSort(arr) {
+  let len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+      for (let j = 0; j < len - 1 - i; j++) {
+          if (arr[j].score > arr[j + 1].score) {
+              // Swapping the elements
+              let temp = arr[j];
+              arr[j] = arr[j + 1];
+              arr[j + 1] = temp;
+          }
+      }
+  }
+  return arr;
+}
+
+const getLeaderboard = catchAsync(async (req, res) => {
+  userArray = bubbleSort(userArray);
+  return userArray
+});
+
 module.exports = {
   createUser,
   getUsers,
