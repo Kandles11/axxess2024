@@ -13,7 +13,7 @@ const foodSchema = mongoose.Schema({
     trim: true
   },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  serving: {
+  servings: {
     type: Number,
     required: true
   },
