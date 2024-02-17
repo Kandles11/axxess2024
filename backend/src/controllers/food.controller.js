@@ -39,7 +39,7 @@ const getFood = catchAsync(async (req, res) => {
 });
 
 const getFoodByUser = catchAsync(async (req, res) => {
-    const { user, mongoId } = req.params;
+    const { user, mongoId } = req.body;
   
     try {
       const food = await Food.find({ user: user, _id: mongoId }).exec();
