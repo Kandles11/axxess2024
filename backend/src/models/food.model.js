@@ -5,25 +5,29 @@ const foodSchema = mongoose.Schema({
   upc: {
     type: String,
     required: false,
-    trim: true,
+    trim: true
   },
   name:{
     type: String,
     required: false,
-    trim: true,
+    trim: true
   },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   serving: {
     type: Number,
-    required: true,
+    required: true
   },
   novaScore: {
     type: Number,
-    required: false,
+    required: false
   },
   nutritionScore: {
     type: Number,
-    required: false,
+    required: false
+  },
+  calories: {
+    type: Number,
+    required: false
   }
 });
 
