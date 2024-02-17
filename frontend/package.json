@@ -15,6 +15,8 @@
     "@tamagui/babel-plugin": "^1.89.29",
     "@types/react": "~18.2.45",
     "expo": "~50.0.7",
+    "expo-barcode-scanner": "~12.9.2",
+    "expo-camera": "~14.0.3",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
