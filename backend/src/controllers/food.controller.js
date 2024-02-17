@@ -5,10 +5,10 @@ const Food = require('../models/food.model');
 // Servings: Float, 
 
 const createFood = catchAsync(async (req, res) => {
-  const { user, foodName, upc, serving, calories, novaScore, nutritionScore } = req.body;
+  const { foodName, upc, servings, calories, novaScore, nutritionScore } = req.body;
 
   try {
-    const food = await Food.create({ user, foodName, upc, serving, calories, novaScore, nutritionScore }).exec();
+    const food = await Food.create({ foodName, upc, servings, calories, novaScore, nutritionScore }).exec();
     res.status(200).json(food);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -16,10 +16,10 @@ const createFood = catchAsync(async (req, res) => {
 });
 
 const updateFood = catchAsync(async (req, res) => {
-  const { mongoId, serving } = req.body;
+  const { mongoId, servings } = req.body;
 
   const filter = { mongoId };
-  const update = { serving };
+  const update = { servings };
 
   try {
     const food = await Food.findByIdAndUpdate(filter, update, { new: true }).exec();
