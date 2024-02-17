@@ -25,11 +25,6 @@ module.exports = function (api) {
         },
 
       ],
-
-      // NOTE: this is only necessary if you are using reanimated for animations
-
-      "react-native-reanimated/plugin",
-
     ],
 
   };
