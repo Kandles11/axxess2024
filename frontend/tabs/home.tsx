@@ -22,7 +22,7 @@ const DATA = [
 export function HomeScreen() {
     return (
         <ScrollView>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ScoreCard />
             <RecentFood />
             <ScoreBoard />
