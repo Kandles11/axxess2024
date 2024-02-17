@@ -9,7 +9,7 @@ const foodSchema = mongoose.Schema({
   },
   name:{
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
