@@ -8,8 +8,33 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    score: {
+    todayScore: {
       type: Number,
+      required: true,
+    },
+    history: {
+      dailyScore: {
+        date: {
+          type: Date,
+          required: true,
+        },
+        score: {
+          type: Number,
+          required: true,
+        },
+        calories: {
+          type: Number,
+          required: true,
+        },
+        food: {
+          foodId: { type: mongoose.Schema.Types.ObjectId, ref: 'Food' },
+          type: Array,
+          required: true,
+        },
+        type: Object,
+        required: false,
+      },
+      type: Array,
       required: true,
     },
   },

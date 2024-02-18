@@ -61,7 +61,7 @@ function bubbleSort(arr) {
   let len = arr.length;
   for (let i = 0; i < len - 1; i++) {
       for (let j = 0; j < len - 1 - i; j++) {
-          if (arr[j].score < arr[j + 1].score) {
+          if (arr[j].todayScore < arr[j + 1].todayScore) {
               // Swapping the elements
               let temp = arr[j];
               arr[j] = arr[j + 1];

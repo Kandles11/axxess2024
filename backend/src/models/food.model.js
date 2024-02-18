@@ -12,10 +12,6 @@ const foodSchema = mongoose.Schema({
     trim: true
   },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  servings: {
-    type: Number,
-    required: true
-  },
   novaScore: {
     type: Number,
     required: false
