@@ -1,10 +1,21 @@
 const catchAsync = require('../utils/catchAsync');
 const Food = require('../models/food.model');
 
-const nutriscoreMap = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5};
+const nutriscoreMap = {'a': 5, 'b': 4, 'c': 3, 'd': 2, 'e': 1};
 
 const createFood = catchAsync(async (req, res) => {
-  const { user, barcode, servings } = req.body;
+  const { user, barcode, calories, score } = req.body;
+
+  try {
+    const food = Food.create({ user: user, upc: barcode, calories: calories, score: score });
+    res.status(200).json(food);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+const viewFoodInfo = catchAsync(async (req, res) => {
+  const { barcode } = req.params;
 
   try {
     fetch("https://world.openfoodfacts.net/api/v2/product/".concat(barcode), {
@@ -12,26 +23,14 @@ const createFood = catchAsync(async (req, res) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const food = Food.create({ user: user, name: data.product.product_name, 
-          upc: barcode, servings: servings, calories: data.product.nutriments["energy-kcal"], 
-          novaScore: data.product.nutriments["nova-group"],
-          nutritionScore: nutriscoreMap[data.product.nutriscore_grade] });
-        res.status(200).json(food);
-    })
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-const viewFoodInfo = catchAsync(async (req, res) => {
-  const { barcode } = req.body;
-
-  try {
-    fetch("https://world.openfoodfacts.net/api/v2/product/".concat(barcode), {
-        method: "GET"
-    })
-      .then((response) => response.json())
-      .then((data) => { res.status(200).json(data); })
+        const score = (6 - data.product.nutriments["nova-group"]) * 
+          nutriscoreMap[data.product.nutriscore_grade] / 2;
+        res.status(200).json({
+          name: data.product.product_name,
+          calories: data.product.nutriments["energy-kcal"],
+          score: score
+        });
+      })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
