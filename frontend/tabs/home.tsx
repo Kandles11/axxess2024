@@ -44,7 +44,8 @@ export function HomeScreen() {
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
         <View style={{margin: 10 , flexDirection: "row", justifyContent: "center"}}>
-          <ScoreCard /> <StreakCard/>
+          <ScoreCard />
+          <StreakCard />
         </View>
         <RecentFood recents={recents} />
         <ScoreBoard leaders={leaders} />
@@ -67,7 +68,8 @@ function StreakCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
       <Text style={styles.content}>10</Text>
-      <Image source={require('../assets/flame.png')} style={{}}></Image>
+      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"110%", resizeMode: 'contain'
+}}></Image>
 
     </View>
   );
@@ -80,7 +82,6 @@ function RecentFood({ recents }) {
       <Text style={styles.title}>Recent Food</Text>
       {recents &&
         recents.map((item) => <Item key={item.id} title={item.name} score={item.score} />)}
-      <Text style={styles.content}></Text>
     </View>
   );
 }
@@ -92,7 +93,6 @@ function ScoreBoard({ leaders }) {
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
         leaders.map((item) => <Item key={item.id} title={item.name} score={item.score}/>)}
-      <Text style={styles.content}></Text>
     </View>
   );
 }
@@ -112,7 +112,7 @@ const Item = ({ title, score}: ItemProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    width: "80%",
+    width: "95%",
     backgroundColor: "white",
     padding: 20,
     marginVertical: 10,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardRow: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "white",
     padding: 20,
     marginVertical: 5,
