@@ -8,7 +8,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "nativeios": "react-native run-ios",
-    "build:ios": "expo prebuild && react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
+    "build:ios": "expo prebuild && react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --assets-dest='ios' --platform='ios'"
   },
   "dependencies": {
     "@expo/config-plugins": "~7.8.4",

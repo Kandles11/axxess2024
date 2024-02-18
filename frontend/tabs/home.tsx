@@ -3,17 +3,16 @@ import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
+import { SERVER_IP, USERID } from "../consts";
 
 type ItemProps = { title: string };
-
-const USERID = "65d1476b45df61177410c65c";
 
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
   let [leaders, setLeaderboard] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/v1/food/user/65d1476b45df61177410c65c?n=3", {
+    fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=3`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -24,7 +23,7 @@ export function HomeScreen() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/v1/users/leaderboard/3", {
+    fetch(`${SERVER_IP}/v1/users/leaderboard/3`, {
       method: "GET",
     })
       .then((response) => response.json())

@@ -1,11 +1,13 @@
+import { SERVER_IP, USERID } from "../consts";
+
 export function onCodeScan(code: string) {
     let temp = {
-        "user": "Temp",
+        "user": {USERID},
         "barcode": {code},
         "calories": 3,
         "score": 5
     }
-    fetch("http://172.20.10.8:3000/v1/food/", {
+    fetch(`${SERVER_IP}/v1/food/`, {
       method: "POST", body: JSON.stringify(temp), headers: { "Content-Type": "application/json" }
     })
       .then((response) => response.json())
@@ -13,5 +15,3 @@ export function onCodeScan(code: string) {
         console.log("Data from API:", data); // Check the data returned by the API
       });
 }
-
-

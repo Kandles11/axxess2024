@@ -47,7 +47,7 @@ function MyTabs() {
         }}
         component={HomeScreen}
       />
-      <Tab.Screen name="Scan"
+      <Tab.Screen name="Scanner"
         options={{
           title: "",
           headerStyle: {
