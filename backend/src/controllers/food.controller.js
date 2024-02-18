@@ -35,7 +35,7 @@ const viewFoodInfo = catchAsync(async (req, res) => {
           let calories;
           let score;
           if (name_db) {
-            name = nutri_db;
+            name = name_db;
           } else {
             name = "Unknown"
           }
