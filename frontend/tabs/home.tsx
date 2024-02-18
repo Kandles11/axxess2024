@@ -35,6 +35,7 @@ export function HomeScreen() {
 
   return (
     <ScrollView>
+
       <View
         style={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
       >
@@ -42,8 +43,9 @@ export function HomeScreen() {
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
-
-        <ScoreCard />
+        <View style={{margin: 10 , flexDirection: "row", justifyContent: "center"}}>
+          <ScoreCard /> <StreakCard/>
+        </View>
         <RecentFood recents={recents} />
         <ScoreBoard leaders={leaders} />
       </View>
@@ -56,6 +58,15 @@ function ScoreCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>My Score</Text>
       <Text style={styles.content}>6.8</Text>
+    </View>
+  );
+}
+
+function StreakCard() {
+  return (
+    <View style={styles.cardRow}>
+      <Text style={styles.title}>Streak</Text>
+      <Text style={styles.content}>10</Text>
     </View>
   );
 }
@@ -116,8 +127,8 @@ const styles = StyleSheet.create({
     width: "80%",
     backgroundColor: "white",
     padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
+    marginVertical: 5,
+    marginHorizontal: 5,
     borderRadius: 10,
     shadowColor: "#000",
     flexDirection: "row",
