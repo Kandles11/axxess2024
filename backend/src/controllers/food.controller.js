@@ -91,8 +91,6 @@ const getFoodByUser = catchAsync(async (req, res) => {
   }
 });
 
-
-
 const deleteFood = catchAsync(async (req, res) => {
   const { mongoId } = req.body;
 
