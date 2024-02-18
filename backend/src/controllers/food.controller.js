@@ -23,6 +23,20 @@ const createFood = catchAsync(async (req, res) => {
   }
 });
 
+const viewFoodInfo = catchAsync(async (req, res) => {
+  const { barcode } = req.body;
+
+  try {
+    fetch("https://world.openfoodfacts.net/api/v2/product/".concat(barcode), {
+        method: "GET"
+    })
+      .then((response) => response.json())
+      .then((data) => { res.status(200).json(data); })
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 const updateFood = catchAsync(async (req, res) => {
   const { mongoId, servings } = req.body;
 
@@ -78,6 +92,7 @@ const deleteFood = catchAsync(async (req, res) => {
 
 module.exports = {
   createFood,
+  viewFoodInfo,
   updateFood,
   getFood,
   getFoodByUser,
