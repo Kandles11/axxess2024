@@ -3,10 +3,10 @@ const catchAsync = require('../utils/catchAsync');
 const Food = require('../models/food.model');
 
 const createFood = catchAsync(async (req, res) => {
-  const { user, foodName, upc, servings, calories, novaScore, nutritionScore } = req.body;
+  const { user, name, upc, servings, calories, novaScore, nutritionScore } = req.body;
 
   try {
-    const food = await Food.create({ user, foodName, upc, servings, calories, novaScore, nutritionScore });
+    const food = await Food.create({ user, name, upc, servings, calories, novaScore, nutritionScore });
     res.status(200).json(food);
   } catch (error) {
     res.status(400).json({ error: error.message });
