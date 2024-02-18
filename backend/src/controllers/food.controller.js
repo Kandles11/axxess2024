@@ -3,11 +3,20 @@ const catchAsync = require('../utils/catchAsync');
 const Food = require('../models/food.model');
 
 const createFood = catchAsync(async (req, res) => {
-  const { user, name, upc, servings, calories, novaScore, nutritionScore } = req.body;
+  const { user, barcode, servings } = req.body;
 
   try {
-    const food = await Food.create({ user, name, upc, servings, calories, novaScore, nutritionScore });
-    res.status(200).json(food);
+    fetch("https://world.openfoodfacts.net/api/v2/product/".concat(barcode), {
+        method: "GET"
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const food = Food.create({ user: user, name: data.product.product_name, 
+          upc: barcode, servings: servings, calories: data.product.nutriments["energy-kcal"], 
+          novaScore: data.product.nutriments["nova-group"],
+          nutritionScore: data.product.nutriscore_score });
+        res.status(200).json(food);
+    })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
