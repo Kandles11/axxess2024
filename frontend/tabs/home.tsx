@@ -67,7 +67,7 @@ function StreakCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
       <Text style={styles.content}>10</Text>
-      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"auto"}}></Image>
+      <Image source={require('../assets/flame.png')} style={{}}></Image>
 
     </View>
   );
