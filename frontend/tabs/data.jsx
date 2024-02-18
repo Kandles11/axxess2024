@@ -28,13 +28,14 @@ export function DataScreen() {
               data: [20, 45, 28, 80, 99, 43]
             }
           ]}}
-        width={useWindowDimensions().width/2} // from react-native
+        width={useWindowDimensions().width} // from react-native
         height={useWindowDimensions().height/3}
         yAxisLabel="$"
         yAxisSuffix="k"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#e26a00",
+          margin:"20px",
           backgroundGradientFrom: "#fb8c00",
           backgroundGradientTo: "#ffa726",
           decimalPlaces: 2, // optional, defaults to 2dp
@@ -42,6 +43,7 @@ export function DataScreen() {
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
             borderRadius: 16,
+            margin: "10px"
           },
           propsForDots: {
             r: "6",
@@ -66,7 +68,7 @@ export function DataScreen() {
             }
           ]
         }}
-        width={useWindowDimensions().width/2}
+        width={useWindowDimensions().width}
         height={220}
         yAxisLabel="$"
         chartConfig={{
