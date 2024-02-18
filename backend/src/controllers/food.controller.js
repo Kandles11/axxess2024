@@ -155,4 +155,5 @@ module.exports = {
   getFood,
   getFoodByUser,
   deleteFood,
+  updateUser,
 };
