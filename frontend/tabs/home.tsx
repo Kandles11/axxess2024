@@ -64,7 +64,7 @@ export function HomeScreen() {
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
-        <View style={{margin: 5 , flexDirection: "row", justifyContent: "center"}}>
+        <View style={{margin: 5 , flexDirection: "row", justifyContent: "center", width:"30%"}}>
           <ScoreCard />
           <StreakCard />
         </View>
@@ -125,7 +125,7 @@ function ScoreBoard({ leaders }) {
 
 const Item = ({ title, score }: ItemProps) => (
   <View style={styles.item}>
-    <View>
+    <View style={{width: "80%"}}>
       <Text style={styles.title}>{title}</Text>
     </View>
     <View
@@ -134,7 +134,7 @@ const Item = ({ title, score }: ItemProps) => (
           score == 0 ? "#000000": score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969",
         borderRadius: 20,
         marginLeft: "auto",
-        padding: 20,
+        padding: 20, 
       }}
     >
       <Text style={styles.accentText}>{score}</Text>
