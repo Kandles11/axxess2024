@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
-
 const Food = require('../models/food.model');
+
+const nutriscoreMap = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5};
 
 const createFood = catchAsync(async (req, res) => {
   const { user, barcode, servings } = req.body;
@@ -14,7 +15,7 @@ const createFood = catchAsync(async (req, res) => {
         const food = Food.create({ user: user, name: data.product.product_name, 
           upc: barcode, servings: servings, calories: data.product.nutriments["energy-kcal"], 
           novaScore: data.product.nutriments["nova-group"],
-          nutritionScore: data.product.nutriscore_score });
+          nutritionScore: nutriscoreMap[data.product.nutriscore_grade] });
         res.status(200).json(food);
     })
   } catch (error) {
