@@ -19,6 +19,7 @@ type ItemProps = { title: string; score: number };
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
   let [leaders, setLeaderboard] = useState(null);
+  let [user, setUser] = useState({ name: 'User', todayScore: 0 });
 
   const fetchData = async () => {
     fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=4`, {
@@ -38,7 +39,18 @@ export function HomeScreen() {
         console.log("Data from API:", data); // Check the data returned by the API
         setLeaderboard(data);
       });
+
+    fetch(`${SERVER_IP}/v1/users/${USERID}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data from API:", data); // Check the data returned by the API
+        setUser(data);
+      });
   };
+
+  fetchData();
 
   const isFocused = useIsFocused()
 
@@ -53,38 +65,26 @@ export function HomeScreen() {
       >
         <View style={{ justifyContent: "center", margin: 30 }}>
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
-          <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
+          <Text style={{ fontSize: 36, fontWeight: "bold" }}>{user.name}!</Text>
         </View>
         <View style={{margin: 5 , flexDirection: "column", justifyContent: "center", width:"80%"}}>
-          <ScoreCard />
-          <StreakCard />
+          <View style={styles.cardRow}>
+            <Text style={styles.title}>My Score</Text>
+            <Text style={styles.content}>{user.todayScore}</Text>
+          </View>
+          <View style={styles.cardRow}>
+            <Text style={styles.title}>Streak</Text>
+            <Text style={styles.content}>2</Text>
+            <Image
+              source={require("../assets/flame.png")}
+              style={{marginLeft:10, marginBottom: 0 }}
+            ></Image>
+          </View>
         </View>
         <RecentFood recents={recents} />
         <ScoreBoard leaders={leaders} />
       </View>
     </ScrollView>
-  );
-}
-
-function ScoreCard() {
-  return (
-    <View style={styles.cardRow}>
-      <Text style={styles.title}>My Score</Text>
-      <Text style={styles.content}>6.8</Text>
-    </View>
-  );
-}
-
-function StreakCard() {
-  return (
-    <View style={styles.cardRow}>
-      <Text style={styles.title}>Streak</Text>
-      <Text style={styles.content}>2</Text>
-      <Image
-        source={require("../assets/flame.png")}
-        style={{marginLeft:10, marginBottom: 0 }}
-      ></Image>
-    </View>
   );
 }
 
