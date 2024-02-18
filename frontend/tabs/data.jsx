@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -70,40 +70,41 @@ const styles = StyleSheet.create({
 
 export function DataScreen() {
   return (
+    <ScrollView>
+      
     <View>
       <Text style = {styles.title}>Calorie Tracker</Text>
 
       <LineChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["Monday","Tuesday","Wednesday","Thurday","Friday","Saturday","Sunday"],
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43]
+              data: [20, 45, 28, 80, 99, 43, 22]
             }
           ]}}
-        width={useWindowDimensions().width * 0.8} // from react-native
-        height={useWindowDimensions().height/3}
-        yAxisLabel="$"
-        yAxisSuffix="k"
-        yAxisInterval={1} // optional, defaults to 1
-        chartConfig={{
-          backgroundColor: "#e26a00",
-          margin:"20px",
-          backgroundGradientFrom: "#d9d907",
-          backgroundGradientTo: "#bfbf08",
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
-          labelColor: (opacity = 0.5) => `rgba(255, 255, 255, 1)`,
-          style: {
-            borderRadius: 16,
-            margin: "20px"
-          },
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726",
-          },
-        }}
+          width={useWindowDimensions().width * 0.8} // from react-native
+          height={useWindowDimensions().height/3}
+          yAxisSuffix=" kcal"
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            margin:"20px",
+            backgroundGradientFrom: "#d9d907",
+            backgroundGradientTo: "#bfbf08",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
+            labelColor: (opacity = 0.5) => `rgba(255, 255, 255, 1)`,
+            style: {
+              borderRadius: 16,
+              margin: "20px"
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726",
+            },
+          }}
         bezier
         style={{
           marginVertical: 8,
@@ -111,28 +112,27 @@ export function DataScreen() {
           borderRadius: 16,
           alignSelf: "center"
         }}
-      />
+        />
 
+      <Text style = {styles.title}>Average Weekly Score</Text>
       <BarChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["Monday","Tuesday","Wednesday","Thurday","Friday","Saturday","Sunday"],
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43]
+              data: [4,14,16,6,8,15,9]
             }
           ]}}
-        width={useWindowDimensions().width * 0.8} // from react-native
-        height={useWindowDimensions().height/3}
-        yAxisLabel="$"
-        yAxisSuffix="k"
-        yAxisInterval={1} // optional, defaults to 1
-        chartConfig={{
-          backgroundColor: "#e26a00",
-          margin:"20px",
-          backgroundGradientFrom: "#d9d907",
-          backgroundGradientTo: "#bfbf08",
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
+          width={useWindowDimensions().width * 0.8} // from react-native
+          height={useWindowDimensions().height/3}
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            margin:"20px",
+            backgroundGradientFrom: "#d9d907",
+            backgroundGradientTo: "#bfbf08",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
           labelColor: (opacity = 0.5) => `rgba(255, 255, 255, 1)`,
           style: {
             borderRadius: 16,
@@ -151,9 +151,10 @@ export function DataScreen() {
           borderRadius: 16,
           alignSelf: "center"
         }}
-      />
+        />
 
     </View>
+    </ScrollView>
 
   );
 }
