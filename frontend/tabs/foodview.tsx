@@ -47,15 +47,15 @@ export default function FoodView({ isVisible, data, info, onClose }) {
 
 const styles = StyleSheet.create({
   modalContent: {
-    height: '70%',
-    width: '80%',
+    height: '100%',
+    width: '100%',
     backgroundColor: '#25292e',
     borderTopRightRadius: 18,
     borderTopLeftRadius: 18,
     justifyContent: 'center',
   },
   titleContainer: {
-    height: '80%',
+    height: '100%',
     backgroundColor: '#464C55',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
