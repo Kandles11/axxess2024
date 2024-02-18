@@ -67,7 +67,8 @@ function StreakCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
       <Text style={styles.content}>10</Text>
-      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"auto"}}></Image>
+      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"110%", resizeMode: 'contain'
+}}></Image>
 
     </View>
   );
@@ -80,7 +81,6 @@ function RecentFood({ recents }) {
       <Text style={styles.title}>Recent Food</Text>
       {recents &&
         recents.map((item) => <Item key={item.id} title={item.name} score={item.score} />)}
-      <Text style={styles.content}></Text>
     </View>
   );
 }
@@ -92,7 +92,6 @@ function ScoreBoard({ leaders }) {
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
         leaders.map((item) => <Item key={item.id} title={item.name} score={item.score}/>)}
-      <Text style={styles.content}></Text>
     </View>
   );
 }
