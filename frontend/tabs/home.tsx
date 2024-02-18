@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 type ItemProps = {title: string};
@@ -21,11 +21,13 @@ const DATA = [
 
 export function HomeScreen() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ScrollView>
+      <View style={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ScoreCard />
             <RecentFood />
             <ScoreBoard />
       </View>
+        </ScrollView>
     );
   }
 
