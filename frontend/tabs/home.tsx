@@ -1,17 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
 
-type ItemProps = { title: string, score:number };
+type ItemProps = { title: string; score: number };
 
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
   let [leaders, setLeaderboard] = useState(null);
 
-  useEffect(() => {
+  const fetchData = async () => {
     fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=3`, {
       method: "GET",
     })
@@ -20,9 +27,7 @@ export function HomeScreen() {
         console.log("Data from API:", data); // Check the data returned by the API
         setRecentFood(data);
       });
-  }, []);
 
-  useEffect(() => {
     fetch(`${SERVER_IP}/v1/users/leaderboard/3`, {
       method: "GET",
     })
@@ -31,15 +36,31 @@ export function HomeScreen() {
         console.log("Data from API:", data); // Check the data returned by the API
         setLeaderboard(data);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // Tab is visible again, refresh data
+        fetchData();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }
   }, []);
 
   return (
     <ScrollView>
-
       <View
         style={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
       >
-        <View style={{justifyContent:"center" ,margin: 30}}>
+        <View style={{ justifyContent: "center", margin: 30 }}>
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
@@ -68,9 +89,10 @@ function StreakCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
       <Text style={styles.content}>10</Text>
-      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"110%", resizeMode: 'contain'
-}}></Image>
-
+      <Image
+        source={require("../assets/flame.png")}
+        style={{marginLeft:10, marginBottom: 0 }}
+      ></Image>
     </View>
   );
 }
@@ -81,30 +103,40 @@ function RecentFood({ recents }) {
     <View style={styles.card}>
       <Text style={styles.title}>Recent Food</Text>
       {recents &&
-        recents.map((item) => <Item key={item.id} title={item.name} score={item.score} />)}
+        recents.map((item) => (
+          <Item key={item.id} title={item.name} score={item.score} />
+        ))}
     </View>
   );
 }
 
 function ScoreBoard({ leaders }) {
-  console.log("leaders ",leaders);
+  console.log("leaders ", leaders);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
-        leaders.map((item) => <Item key={item.id} title={item.name} score={item.score}/>)}
+        leaders.map((item) => (
+          <Item key={item.id} title={item.name} score={item.score} />
+        ))}
     </View>
   );
 }
 
-const Item = ({ title, score}: ItemProps) => (
+const Item = ({ title, score }: ItemProps) => (
   <View style={styles.item}>
     <View>
-    <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
     </View>
-    <View style={{backgroundColor: score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969"   ,borderRadius: 20,
-    marginLeft: "auto",
-    padding: 20, }}>
+    <View
+      style={{
+        backgroundColor:
+          score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969",
+        borderRadius: 20,
+        marginLeft: "auto",
+        padding: 20,
+      }}
+    >
       <Text style={styles.accentText}>{score}</Text>
     </View>
   </View>
@@ -166,11 +198,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginLeft: "auto",
     padding: 20,
-
   },
   accentText: {
     color: "white",
     fontSize: 28,
     fontWeight: "bold",
-  }
+  },
 });

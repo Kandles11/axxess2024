@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, Platform, View, Image} from "react-native";
+import { StyleSheet, Text, Platform, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ScanWebScreen } from "./tabs/scanweb";
@@ -39,15 +39,18 @@ function MyTabs() {
           },
 
           tabBarIcon: () => {
-            return <View style={{alignContent: "center"}}>
-              <HomeIcon />
-              <Text fontSize={10}>Home</Text>
-            </View>;
+            return (
+              <View style={{ alignContent: "center" }}>
+                <HomeIcon />
+                <Text fontSize={10}>Home</Text>
+              </View>
+            );
           },
         }}
         component={HomeScreen}
       />
-      <Tab.Screen name="Scanner"
+      <Tab.Screen
+        name="Scanner"
         options={{
           title: "",
           headerStyle: {
@@ -58,27 +61,35 @@ function MyTabs() {
           },
 
           tabBarIcon: () => {
-            return <View style={{alignContent: "center"}}>
-              <BarcodeIcon />
-              <Text fontSize={10}>Scan</Text>
-            </View>;
+            return (
+              <View style={{ alignContent: "center" }}>
+                <BarcodeIcon />
+                <Text fontSize={10}>Scan</Text>
+              </View>
+            );
           },
-        }} component={ScanScreen} />
-        
-      <Tab.Screen name="Charts" component={DataScreen} options={{
-        title: "",
-        tabBarIcon: () => {
-            return <View style={{alignContent: "center"}}>
-              <ChartIcon />
-              <Text fontSize={10}>Charts</Text>
-            </View>;
-      },
-    }} />
+        }}
+        component={ScanScreen}
+      />
+
+      <Tab.Screen
+        name="Charts"
+        component={DataScreen}
+        options={{
+          title: "",
+          tabBarIcon: () => {
+            return (
+              <View style={{ alignContent: "center" }}>
+                <ChartIcon />
+                <Text fontSize={10}>Charts</Text>
+              </View>
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }
-
-
 
 export default function App() {
   return (
@@ -89,17 +100,17 @@ export default function App() {
 }
 
 function HomeIcon() {
-  return ( 
-  <View>
-    <Image source={require('./assets/house.png')}></Image>
-  </View>
+  return (
+    <View>
+      <Image source={require("./assets/house.png")}></Image>
+    </View>
   );
 }
 
 function BarcodeIcon() {
   return (
     <View>
-      <Image source={require('./assets/barcode.png')}></Image>
+      <Image source={require("./assets/barcode.png")}></Image>
     </View>
   );
 }
@@ -107,7 +118,7 @@ function BarcodeIcon() {
 function ChartIcon() {
   return (
     <View>
-      <Image source={require('./assets/chart.png')}></Image>
+      <Image source={require("./assets/chart.png")}></Image>
     </View>
   );
 }
