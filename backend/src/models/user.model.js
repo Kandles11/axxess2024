@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    todayCalories: {
+      type: Number,
+      required: true,
+    },
     history: {
       dailyScore: {
         date: {

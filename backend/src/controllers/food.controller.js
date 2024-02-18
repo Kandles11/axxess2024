@@ -105,6 +105,7 @@ async function updateUser(userId, food) {
   const dailyScores = history.filter((dailyScore) => dailyScore.date == dateString);
   if (dailyScores.length == 0) {
     await User.updateOne({ _id: userId }, { todayScore: food.score }).exec();
+    await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
     history.push({
       date: dateString,
       score: food.score,
@@ -123,6 +124,7 @@ async function updateUser(userId, food) {
     dailyScores[0].score = score;
     await User.updateOne({ _id: userId }, { todayScore: score }).exec();
     dailyScores[0].calories += food.calories;
+    await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
     foods.push(food._id);
     await User.updateOne({ _id: userId }, { history: history }).exec();
   }
