@@ -28,7 +28,7 @@ const viewFoodInfo = catchAsync(async (req, res) => {
       .then((data) => {
         if (data) {
           const nova_db = 6 - data.product.nutriments["nova-group"];
-          const nutri_db = nutriscoreMap[data.product.nutriscore_grade]
+          const nutri_db = nutriscoreMap[data.product.nutriscore_grade];
           const name_db = data.product.brands + ": " + data.product.product_name;
           const calories_db = data.product.nutriments["energy-kcal"];
           let name;
@@ -113,28 +113,37 @@ async function updateUser(userId, food) {
   const user = await User.findOne({ _id: userId }).exec();
   const history = user.history;
   const dailyScores = history.filter((dailyScore) => dailyScore.date == dateString);
+  const score = food.score;
+  const calories = food.calories;
   if (dailyScores.length == 0) {
-    await User.updateOne({ _id: userId }, { todayScore: food.score }).exec();
-    await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
+    if (score != 0) { await User.updateOne({ _id: userId }, { todayScore: food.score }).exec(); }
+    if (calories != 0) { await User.updateOne({ _id: userId }, { todayCalories: calories }).exec(); }
     history.push({
       date: dateString,
       score: food.score,
-      calories: food.calories,
+      calories: calories,
       food: [food._id]
     })
     await User.updateOne({ _id: userId }, { history: history }).exec();
   } else {
     const foods = dailyScores[0].food;
-    let score = food.score;
+    let zeros = 0;
     for (let i = 0; i < foods.length; i++) {
       const storedFood = await Food.findById(foods[i]).exec();
       score += storedFood.score;
+      if (storedFood.score == 0) {
+        zeros += 1;
+      } else {
+        score += storedFood.score;
+      }
     }
-    score /= foods.length + 1;
+    score /= foods.length + 1 - zeros;
     dailyScores[0].score = score;
     await User.updateOne({ _id: userId }, { todayScore: score }).exec();
-    dailyScores[0].calories += food.calories;
-    await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
+    if (calories != 0) { 
+      dailyScores[0].calories += food.calories;
+      await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
+    }
     foods.push(food._id);
     await User.updateOne({ _id: userId }, { history: history }).exec();
   }
