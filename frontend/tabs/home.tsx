@@ -11,6 +11,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
+import { useIsFocused } from '@react-navigation/native';
+
 
 type ItemProps = { title: string; score: number };
 
@@ -38,22 +40,11 @@ export function HomeScreen() {
       });
   };
 
+  const isFocused = useIsFocused()
+
   useEffect(() => {
     fetchData();
-
-    // const handleVisibilityChange = () => {
-    //   if (!document.hidden) {
-    //     // Tab is visible again, refresh data
-    //     fetchData();
-    //   }
-    // };
-
-    // document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // return () => {
-    //   document.removeEventListener('visibilitychange', handleVisibilityChange);
-    // }
-  }, []);
+  }, [isFocused]);
 
   return (
     <ScrollView>
