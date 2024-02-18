@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
 
-type ItemProps = { title: string, score:string };
+type ItemProps = { title: string, score:number };
 
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
@@ -100,7 +100,9 @@ const Item = ({ title, score}: ItemProps) => (
     <View>
     <Text style={styles.title}>{title}</Text>
     </View>
-    <View style={styles.accent}>
+    <View style={{backgroundColor: score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969"   ,borderRadius: 20,
+    marginLeft: "auto",
+    padding: 20, }}>
       <Text style={styles.accentText}>{score}</Text>
     </View>
   </View>
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginLeft: "auto",
     padding: 20,
-    backgroundColor: "#D22B2B",
+
   },
   accentText: {
     color: "white",
