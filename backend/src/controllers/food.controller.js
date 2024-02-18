@@ -39,11 +39,16 @@ const getFood = catchAsync(async (req, res) => {
 });
 
 const getFoodByUser = catchAsync(async (req, res) => {
-    const { user, mongoId } = req.body;
+    const { user, numFoods } = req.body;
   
     try {
-      const food = await Food.find({ user: user, _id: mongoId }).exec();
-      res.status(200).json(food);
+      if (numFoods) {
+        const food = await Food.find({ user: user }).limit(numFoods).exec();
+        res.status(200).json(food);
+      } else {
+        const food = await Food.find({ user: user }).exec();
+        res.status(200).json(food);
+      }
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
