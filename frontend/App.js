@@ -46,6 +46,11 @@ function MyTabs() {
               </View>
             );
           },
+          headerRight: () => (
+            <View>
+              <UserPic />
+            </View>
+          ),
         }}
         component={HomeScreen}
       />
@@ -119,6 +124,14 @@ function ChartIcon() {
   return (
     <View>
       <Image source={require("./assets/chart.png")}></Image>
+    </View>
+  );
+}
+
+function UserPic() {
+  return (
+    <View style={{height: "50%"}}>
+      <Image style={{margin:15, borderRadius: 25, objectFit: "contain"}}source={require("./assets/mason.jpg")}></Image>
     </View>
   );
 }

@@ -19,7 +19,7 @@ export function HomeScreen() {
   let [leaders, setLeaderboard] = useState(null);
 
   const fetchData = async () => {
-    fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=3`, {
+    fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=4`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -28,7 +28,7 @@ export function HomeScreen() {
         setRecentFood(data);
       });
 
-    fetch(`${SERVER_IP}/v1/users/leaderboard/3`, {
+    fetch(`${SERVER_IP}/v1/users/leaderboard/4`, {
       method: "GET",
     })
       .then((response) => response.json())
