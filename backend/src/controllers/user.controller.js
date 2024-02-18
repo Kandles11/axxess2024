@@ -73,8 +73,19 @@ function bubbleSort(arr) {
 }
 
 const getLeaderboard = catchAsync(async (req, res) => {
-  userArray = bubbleSort(userArray);
-  return userArray
+  const { n } = req.body;
+
+  try {
+    const users = await User.find({}).exec();
+    if (n) {
+      const sortedUsers = bubbleSort(sortedUsers);
+      res.status(200).json(sortedUsers.slice(0, n));
+    } else {
+      res.status(200).json(users);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 module.exports = {
@@ -83,4 +94,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  getLeaderboard,
 };
