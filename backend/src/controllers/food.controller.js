@@ -28,7 +28,7 @@ const updateFood = catchAsync(async (req, res) => {
 });
 
 const getFood = catchAsync(async (req, res) => {
-  const { mongoId } = req.body;
+  const { mongoId } = req.params;
 
   try {
     const food = await Food.findById({ mongoId }).exec();

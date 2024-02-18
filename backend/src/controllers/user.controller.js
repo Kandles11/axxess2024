@@ -27,7 +27,7 @@ const updateUser = catchAsync(async (req, res) => {
 });
 
 const getUser = catchAsync(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   try {
     const user = await User.findOne({ userId }).exec();
@@ -73,7 +73,7 @@ function bubbleSort(arr) {
 }
 
 const getLeaderboard = catchAsync(async (req, res) => {
-  const { n } = req.body;
+  const { n } = req.query;
 
   try {
     const users = await User.find({}).exec();
