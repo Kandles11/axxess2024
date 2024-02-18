@@ -14,12 +14,65 @@ import { useWindowDimensions } from 'react-native';
 // const windowWidth = useWindowDimensions().width;
 // const windowHeight = useWindowDimensions().height;
 
+const styles = StyleSheet.create({
+
+  card: {
+      width: "80%",
+      backgroundColor: 'white',
+      padding: 20,
+      marginVertical: 10,
+      marginHorizontal: 20,
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+  cardRow: {
+    width: "80%",
+    backgroundColor: 'white',
+    padding: 20,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    flexDirection: 'row',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    alignSelf: "center"
+  },
+  content: {
+      marginLeft: "auto",
+    fontSize: 16,
+  },
+  item: {
+      backgroundColor: '#f9c2ff',
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+    },
+});
 
 
 export function DataScreen() {
   return (
     <View>
-      <Text>Bezier Line Chart</Text>
+      <Text style = {styles.title}>Calorie Tracker</Text>
+
       <LineChart
         data={{
           labels: ["January", "February", "March", "April", "May", "June"],
@@ -28,7 +81,7 @@ export function DataScreen() {
               data: [20, 45, 28, 80, 99, 43]
             }
           ]}}
-        width={useWindowDimensions().width} // from react-native
+        width={useWindowDimensions().width * 0.8} // from react-native
         height={useWindowDimensions().height/3}
         yAxisLabel="$"
         yAxisSuffix="k"
@@ -36,14 +89,14 @@ export function DataScreen() {
         chartConfig={{
           backgroundColor: "#e26a00",
           margin:"20px",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundGradientFrom: "#d9d907",
+          backgroundGradientTo: "#bfbf08",
           decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
+          labelColor: (opacity = 0.5) => `rgba(255, 255, 255, 1)`,
           style: {
             borderRadius: 16,
-            margin: "10px"
+            margin: "20px"
           },
           propsForDots: {
             r: "6",
@@ -54,35 +107,52 @@ export function DataScreen() {
         bezier
         style={{
           marginVertical: 8,
+          marginHorizontal: 10,
           borderRadius: 16,
+          alignSelf: "center"
         }}
       />
 
       <BarChart
-        //style={graphStyle}
         data={{
           labels: ["January", "February", "March", "April", "May", "June"],
           datasets: [
             {
               data: [20, 45, 28, 80, 99, 43]
             }
-          ]
-        }}
-        width={useWindowDimensions().width}
-        height={220}
+          ]}}
+        width={useWindowDimensions().width * 0.8} // from react-native
+        height={useWindowDimensions().height/3}
         yAxisLabel="$"
+        yAxisSuffix="k"
+        yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundGradientFrom: "#1E2923",
-          backgroundGradientFromOpacity: 0,
-          backgroundGradientTo: "#08130D",
-          backgroundGradientToOpacity: 0.5,
-          color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-          strokeWidth: 2, // optional, default 3
-          barPercentage: 0.5,
-          useShadowColorFromDataset: false // optional
+          backgroundColor: "#e26a00",
+          margin:"20px",
+          backgroundGradientFrom: "#d9d907",
+          backgroundGradientTo: "#bfbf08",
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 0.5) => `rgba(255, 255, 255, 0.5)`,
+          labelColor: (opacity = 0.5) => `rgba(255, 255, 255, 1)`,
+          style: {
+            borderRadius: 16,
+            margin: "20px"
+          },
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#ffa726",
+          },
         }}
-        verticalLabelRotation={30}
+        bezier
+        style={{
+          marginVertical: 8,
+          marginHorizontal: 10,
+          borderRadius: 16,
+          alignSelf: "center"
+        }}
       />
+
     </View>
 
   );
