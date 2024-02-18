@@ -5,7 +5,6 @@ const foodSchema = mongoose.Schema({
   upc: {
     type: String,
     required: false,
-    trim: true
   },
   name:{
     type: String,
