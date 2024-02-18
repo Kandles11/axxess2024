@@ -75,17 +75,13 @@ export function DataScreen() {
         <LineChart
           data={{
             labels: [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thurday",
               "Friday",
               "Saturday",
               "Sunday",
             ],
             datasets: [
               {
-                data: [893, 124, 286, 123, 986, 654, 543],
+                data: [986, 654, 750],
               },
             ],
           }}
@@ -125,17 +121,13 @@ export function DataScreen() {
         <BarChart
           data={{
             labels: [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thurday",
               "Friday",
               "Saturday",
               "Sunday",
             ],
             datasets: [
               {
-                data: [4, 14, 16, 6, 8, 15, 9],
+                data: [8, 15, 9],
               },
             ],
           }}
