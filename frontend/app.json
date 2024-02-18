@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "foodHelp",
-    "slug": "foodHelp",
+    "name": "SnackIt",
+    "slug": "SnackIt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.foodHelp",
+      "bundleIdentifier": "com.anonymous.SnackIt",
       "infoPlist": {
         "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera."
       }
@@ -30,7 +30,7 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.anonymous.foodHelp"
+      "package": "com.anonymous.SnackIt"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -48,6 +48,11 @@
           "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6d7de849-b5fb-4fe0-b18e-bd6512c3c6aa"
+      }
+    }
   }
 }
