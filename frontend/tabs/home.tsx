@@ -64,7 +64,7 @@ export function HomeScreen() {
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
-        <View style={{margin: 5 , flexDirection: "column", justifyContent: "center", width:"30%"}}>
+        <View style={{margin: 5 , flexDirection: "column", justifyContent: "center", width:"80%"}}>
           <ScoreCard />
           <StreakCard />
         </View>
