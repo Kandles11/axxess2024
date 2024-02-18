@@ -24,16 +24,16 @@ const viewFoodInfo = catchAsync(async (req, res) => {
     fetch("https://world.openfoodfacts.net/api/v2/product/" + barcode, {
         method: "GET"
     })
-    .then((response) => response.json())
-    .then((data) => {
-      const score = (6 - data.product.nutriments["nova-group"]) * 
-        nutriscoreMap[data.product.nutriscore_grade] / 2;
-      res.status(200).json({
-        name: data.product.product_name,
-        calories: data.product.nutriments["energy-kcal"],
-        score: score
-      });
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        const score = (6 - data.product.nutriments["nova-group"]) * 
+          nutriscoreMap[data.product.nutriscore_grade] / 2;
+        res.status(200).json({
+          name: data.product.brands + " " + data.product.product_name,
+          calories: data.product.nutriments["energy-kcal"],
+          score: score
+        });
+      })
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

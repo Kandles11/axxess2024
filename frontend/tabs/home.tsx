@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
 
-type ItemProps = { title: string };
+type ItemProps = { title: string, score:number };
 
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
@@ -35,6 +35,7 @@ export function HomeScreen() {
 
   return (
     <ScrollView>
+
       <View
         style={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
       >
@@ -42,8 +43,10 @@ export function HomeScreen() {
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
-
-        <ScoreCard />
+        <View style={{margin: 10 , flexDirection: "row", justifyContent: "center"}}>
+          <ScoreCard />
+          <StreakCard />
+        </View>
         <RecentFood recents={recents} />
         <ScoreBoard leaders={leaders} />
       </View>
@@ -60,14 +63,25 @@ function ScoreCard() {
   );
 }
 
+function StreakCard() {
+  return (
+    <View style={styles.cardRow}>
+      <Text style={styles.title}>Streak</Text>
+      <Text style={styles.content}>10</Text>
+      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"110%", resizeMode: 'contain'
+}}></Image>
+
+    </View>
+  );
+}
+
 function RecentFood({ recents }) {
   console.log("recents", recents);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Recent Food</Text>
       {recents &&
-        recents.map((item) => <Item key={item.id} title={item.name} />)}
-      <Text style={styles.content}></Text>
+        recents.map((item) => <Item key={item.id} title={item.name} score={item.score} />)}
     </View>
   );
 }
@@ -78,21 +92,27 @@ function ScoreBoard({ leaders }) {
     <View style={styles.card}>
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
-        leaders.map((item) => <Item key={item.id} title={item.name} />)}
-      <Text style={styles.content}></Text>
+        leaders.map((item) => <Item key={item.id} title={item.name} score={item.score}/>)}
     </View>
   );
 }
 
-const Item = ({ title }: ItemProps) => (
+const Item = ({ title, score}: ItemProps) => (
   <View style={styles.item}>
+    <View>
     <Text style={styles.title}>{title}</Text>
+    </View>
+    <View style={{backgroundColor: score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969"   ,borderRadius: 20,
+    marginLeft: "auto",
+    padding: 20, }}>
+      <Text style={styles.accentText}>{score}</Text>
+    </View>
   </View>
 );
 
 const styles = StyleSheet.create({
   card: {
-    width: "80%",
+    width: "95%",
     backgroundColor: "white",
     padding: 20,
     marginVertical: 10,
@@ -108,11 +128,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardRow: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "white",
     padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
+    marginVertical: 5,
+    marginHorizontal: 5,
     borderRadius: 10,
     shadowColor: "#000",
     flexDirection: "row",
@@ -135,10 +155,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   item: {
+    flexDirection: "row",
     borderRadius: 20,
     backgroundColor: "#dadada",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  accent: {
+    borderRadius: 20,
+    marginLeft: "auto",
+    padding: 20,
+
+  },
+  accentText: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+  }
 });
