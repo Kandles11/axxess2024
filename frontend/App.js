@@ -64,7 +64,16 @@ function MyTabs() {
             </View>;
           },
         }} component={ScanScreen} />
-      <Tab.Screen name="Charts" component={DataScreen} />
+        
+      <Tab.Screen name="Charts" component={DataScreen} options={{
+        title: "",
+        tabBarIcon: () => {
+            return <View style={{alignContent: "center"}}>
+              <ChartIcon />
+              <Text fontSize={10}>Charts</Text>
+            </View>;
+      },
+    }} />
     </Tab.Navigator>
   );
 }
@@ -91,6 +100,14 @@ function BarcodeIcon() {
   return (
     <View>
       <Image source={require('./assets/barcode.png')}></Image>
+    </View>
+  );
+}
+
+function ChartIcon() {
+  return (
+    <View>
+      <Image source={require('./assets/chart.png')}></Image>
     </View>
   );
 }
