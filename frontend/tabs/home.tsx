@@ -7,11 +7,12 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
 import { useIsFocused } from '@react-navigation/native';
+import React from "react";
 
 
 type ItemProps = { title: string; score: number };
@@ -22,7 +23,7 @@ export function HomeScreen() {
   let [user, setUser] = useState({ name: 'User', todayScore: 0 });
 
   const fetchData = async () => {
-    fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=4`, {
+    await fetch(`${SERVER_IP}/v1/food/user/${USERID}?n=4`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -31,7 +32,7 @@ export function HomeScreen() {
         setRecentFood(data);
       });
 
-    fetch(`${SERVER_IP}/v1/users/leaderboard/4`, {
+    await fetch(`${SERVER_IP}/v1/users/leaderboard/4`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -40,7 +41,7 @@ export function HomeScreen() {
         setLeaderboard(data);
       });
 
-    fetch(`${SERVER_IP}/v1/users/${USERID}`, {
+    await fetch(`${SERVER_IP}/v1/users/${USERID}`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -52,11 +53,11 @@ export function HomeScreen() {
 
   fetchData();
 
-  const isFocused = useIsFocused()
-
-  useEffect(() => {
-    fetchData();
-  }, [isFocused]);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   return (
     <ScrollView>
