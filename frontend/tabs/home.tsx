@@ -3,77 +3,50 @@ import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
+
 type ItemProps = { title: string };
 
-const recents = [
-  {
-    id: "1",
-    title: "Pasta",
-  },
-  {
-    id: "2",
-    title: "Pizza",
-  },
-  {
-    id: "3",
-    title: "Burger",
-  },
-  {
-    id: "4",
-    title: "Fries",
-  },
-  {
-    id: "5",
-    title: "Salad",
-  },
-];
-
-const leaders = [
-  {
-    id: "1",
-    title: "Mason",
-  },
-  {
-    id: "2",
-    title: "Dylan",
-  },
-  {
-    id: "3",
-    title: "Mudit",
-  },
-  {
-    id: "4",
-    title: "Ayush",
-  },
-  {
-    id: "5",
-    title: "Colin",
-  },
-];
-
+const USERID = "65d1476b45df61177410c65c";
 
 export function HomeScreen() {
-  // let [recents, setRecentFood] = useState(null);
-  // let [leaders, setLeaderboard] = useState(null);
+  let [recents, setRecentFood] = useState(null);
+  let [leaders, setLeaderboard] = useState(null);
 
-  // useEffect(() => {
-  //   fetch("https://dog.ceo/api/breeds/image/random")
-  //     .then((response) => response.json())
-  //     .then((data) => setRecentFood(data.message));
-  // }, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/v1/food/user/65d1476b45df61177410c65c?n=3", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data from API:", data); // Check the data returned by the API
+        setRecentFood(data);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   fetch("https://dog.ceo/api/breeds/image/random")
-  //     .then((response) => response.json())
-  //     .then((data) => setLeaderboard(data.message));
-  // }, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/v1/users/leaderboard/3", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data from API:", data); // Check the data returned by the API
+        setLeaderboard(data);
+      });
+  }, []);
 
   return (
     <ScrollView>
-      <View style={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <View style={{justifyContent:"center" ,margin: 30}}>
+          <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
+          <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
+        </View>
+
         <ScoreCard />
-        <RecentFood />
-        <ScoreBoard />
+        <RecentFood recents={recents} />
+        <ScoreBoard leaders={leaders} />
       </View>
     </ScrollView>
   );
@@ -88,29 +61,25 @@ function ScoreCard() {
   );
 }
 
-function RecentFood() {
+function RecentFood({ recents }) {
+  console.log("recents " + recents);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Recent Food</Text>
-      <FlatList
-        data={recents}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={(item) => item.id}
-      />
+      {recents &&
+        recents.map((item) => <Item key={item.id} title={item.name} />)}
       <Text style={styles.content}></Text>
     </View>
   );
 }
 
-function ScoreBoard() {
+function ScoreBoard({ leaders }) {
+  console.log("leaders " + leaders);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Top Friends</Text>
-      <FlatList
-        data={leaders}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={(item) => item.id}
-      />
+      {leaders &&
+        leaders.map((item) => <Item key={item.id} title={item.name} />)}
       <Text style={styles.content}></Text>
     </View>
   );
@@ -157,16 +126,18 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 28,
+    fontWeight: "600",
     marginBottom: 10,
   },
   content: {
     marginLeft: "auto",
-    fontSize: 16,
+    fontSize: 28,
+    fontWeight: "600",
   },
   item: {
-    backgroundColor: "#f9c2ff",
+    borderRadius: 20,
+    backgroundColor: "#dadada",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
