@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
 import { SERVER_IP, USERID } from "../consts";
 
-type ItemProps = { title: string };
+type ItemProps = { title: string, score:string };
 
 export function HomeScreen() {
   let [recents, setRecentFood] = useState(null);
@@ -66,7 +66,7 @@ function RecentFood({ recents }) {
     <View style={styles.card}>
       <Text style={styles.title}>Recent Food</Text>
       {recents &&
-        recents.map((item) => <Item key={item.id} title={item.name} />)}
+        recents.map((item) => <Item key={item.id} title={item.name} score={item.score} />)}
       <Text style={styles.content}></Text>
     </View>
   );
@@ -78,15 +78,20 @@ function ScoreBoard({ leaders }) {
     <View style={styles.card}>
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
-        leaders.map((item) => <Item key={item.id} title={item.name} />)}
+        leaders.map((item) => <Item key={item.id} title={item.name} score={item.score}/>)}
       <Text style={styles.content}></Text>
     </View>
   );
 }
 
-const Item = ({ title }: ItemProps) => (
+const Item = ({ title, score}: ItemProps) => (
   <View style={styles.item}>
+    <View>
     <Text style={styles.title}>{title}</Text>
+    </View>
+    <View style={styles.accent}>
+      <Text style={styles.accentText}>{score}</Text>
+    </View>
   </View>
 );
 
@@ -135,10 +140,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   item: {
+    flexDirection: "row",
     borderRadius: 20,
     backgroundColor: "#dadada",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
+  accent: {
+    borderRadius: 20,
+    marginLeft: "auto",
+    padding: 20,
+    backgroundColor: "#D22B2B",
+  },
+  accentText: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+  }
 });
