@@ -26,28 +26,38 @@ const viewFoodInfo = catchAsync(async (req, res) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const score = (6 - data.product.nutriments["nova-group"]) * 
-          nutriscoreMap[data.product.nutriscore_grade] / 2;
-        res.status(200).json({
-          name: data.product.brands + " " + data.product.product_name,
-          calories: data.product.nutriments["energy-kcal"],
-          score: score
-        });
+        if (data) {
+          const nova_db = 6 - data.product.nutriments["nova-group"];
+          const nutri_db = nutriscoreMap[data.product.nutriscore_grade]
+          const name_db = data.product.brands + ": " + data.product.product_name;
+          const calories_db = data.product.nutriments["energy-kcal"];
+          let name;
+          let calories;
+          let score;
+          if (name_db) {
+            name = nutri_db;
+          } else {
+            name = "Unknown"
+          }
+          if (calories_db) {
+            calories = calories_db;
+          } else {
+            calories = 0;
+          }
+          if (nova_db && nutri_db) {
+            score = nova_db * nutri_db / 2;
+          } else {
+            score = 0;
+          }
+          res.status(200).json({
+            name: name,
+            calories: calories,
+            score: score
+          });
+        } else {
+          res.status(400).json({ error: "Barcode Not Found In Database!" });
+        }
       })
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-const updateFood = catchAsync(async (req, res) => {
-  const { mongoId, servings } = req.body;
-
-  const filter = { mongoId };
-  const update = { servings };
-
-  try {
-    const food = await Food.findByIdAndUpdate(filter, update, { new: true }).exec();
-    res.status(200).json(food);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -133,7 +143,6 @@ async function updateUser(userId, food) {
 module.exports = {
   createFood,
   viewFoodInfo,
-  updateFood,
   getFood,
   getFoodByUser,
   deleteFood,
