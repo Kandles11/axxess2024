@@ -113,8 +113,8 @@ async function updateUser(userId, food) {
   const user = await User.findOne({ _id: userId }).exec();
   const history = user.history;
   const dailyScores = history.filter((dailyScore) => dailyScore.date == dateString);
-  const score = food.score;
-  const calories = food.calories;
+  let score = food.score;
+  let calories = food.calories;
   if (dailyScores.length == 0) {
     if (score != 0) { await User.updateOne({ _id: userId }, { todayScore: food.score }).exec(); }
     if (calories != 0) { await User.updateOne({ _id: userId }, { todayCalories: calories }).exec(); }
@@ -126,7 +126,8 @@ async function updateUser(userId, food) {
     })
     await User.updateOne({ _id: userId }, { history: history }).exec();
   } else {
-    const foods = dailyScores[0].food;
+    let todayScore = dailyScores[0];
+    let foods = todayScore.food;
     let zeros = 0;
     for (let i = 0; i < foods.length; i++) {
       const storedFood = await Food.findById(foods[i]).exec();
@@ -138,10 +139,10 @@ async function updateUser(userId, food) {
       }
     }
     score /= foods.length + 1 - zeros;
-    dailyScores[0].score = score;
+    todayScore.score = score;
     await User.updateOne({ _id: userId }, { todayScore: score }).exec();
     if (calories != 0) { 
-      dailyScores[0].calories += food.calories;
+      todayScore.calories += food.calories;
       await User.updateOne({ _id: userId }, { todayCalories: food.calories }).exec();
     }
     foods.push(food._id);
