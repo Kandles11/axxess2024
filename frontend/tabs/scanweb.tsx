@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAppState } from '@react-native-community/hooks';
-import { AutoFocus, Camera, CameraType } from 'expo-camera';
+import { AutoFocus, BarCodeScanningResult, Camera, CameraType } from 'expo-camera';
 // import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
@@ -13,9 +13,9 @@ export function ScanWebScreen() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [scannedData, setScannedData] = useState("");
 
-  let onCodeScanned = (code) => {{
-    setScannedData(code);
-    onCodeScan(code);
+  let onCodeScanned = (code: BarCodeScanningResult) => {{
+    setScannedData(code.data);
+    onCodeScan(code.data);
   }};
 
   const isFocused = useIsFocused();
