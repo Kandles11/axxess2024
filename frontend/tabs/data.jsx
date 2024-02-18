@@ -127,7 +127,7 @@ export function DataScreen() {
             ],
             datasets: [
               {
-                data: [8, 15, 9],
+                data: [8, 6, 4],
               },
             ],
           }}
