@@ -11,13 +11,14 @@ export default function FoodView({ isVisible, data, info, onClose }) {
         "calories": info.calories,
         "score": info.score,
         "name": info.name
-    }
+    };
     fetch(`${SERVER_IP}/v1/food/`, {
       method: "POST", body: JSON.stringify(temp), headers: { "Content-Type": "application/json" }
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Posted food info", info);
+        console.log("Post body:", JSON.stringify(temp));
       });
 
     onClose();
@@ -32,7 +33,7 @@ export default function FoodView({ isVisible, data, info, onClose }) {
           <Text style={styles.text}>Calories: {info.calories}</Text>
           <Text style={styles.text}>Health Factor: {info.score}</Text>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={()=>postFoodAndClose(data, info)}>
+            <Pressable onPress={()=>postFoodAndClose(data, info)} disabled={info.name === "Loading..."}>
               <Text style={styles.mainButton}>Add Food</Text>
             </Pressable>
             <Pressable onPress={onClose}>
@@ -47,8 +48,12 @@ export default function FoodView({ isVisible, data, info, onClose }) {
 
 const styles = StyleSheet.create({
   modalContent: {
-    height: '100%',
-    width: '100%',
+    height: '50%',
+    width: '70%',
+    marginLeft: '15%',
+    marginRight: '15%',
+    marginTop: '50%',
+    marginBottom: '25%',
     backgroundColor: '#25292e',
     borderTopRightRadius: 18,
     borderTopLeftRadius: 18,
