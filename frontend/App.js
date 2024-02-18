@@ -1,16 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Platform } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ScanWebScreen } from './tabs/scanweb';
-import { HomeScreen } from './tabs/home';
-import { DataScreen } from './tabs/data';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, Platform, View, Image} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ScanWebScreen } from "./tabs/scanweb";
+import { HomeScreen } from "./tabs/home";
+import { DataScreen } from "./tabs/data";
 
 let ScanScreen;
-import('./tabs/scanios')
-  .then((module) => { ScanScreen = module.ScanIosScreen })
+import("./tabs/scanios")
+  .then((module) => {
+    ScanScreen = module.ScanIosScreen;
+  })
   .catch((err) => {
-    console.info('Could not import ios camera module.');
+    console.info("Could not import ios camera module.");
     ScanScreen = ScanWebScreen;
   });
 
@@ -18,19 +20,77 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Scan" component={ScanScreen} />
-      <Tab.Screen name="Charts" component={DataScreen} />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { height: 90 },
+        tabBarActiveTintColor: "orange",
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        options={{
+          title: "",
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: "transparent",
+          },
 
+          tabBarIcon: () => {
+            return <View style={{alignContent: "center"}}>
+              <HomeIcon />
+              <Text fontSize={10}>Home</Text>
+            </View>;
+          },
+        }}
+        component={HomeScreen}
+      />
+      <Tab.Screen name="Scan"
+        options={{
+          title: "",
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: "transparent",
+          },
+
+          tabBarIcon: () => {
+            return <View style={{alignContent: "center"}}>
+              <BarcodeIcon />
+              <Text fontSize={10}>Scan</Text>
+            </View>;
+          },
+        }} component={ScanScreen} />
+      <Tab.Screen name="Charts" component={DataScreen} />
     </Tab.Navigator>
   );
 }
+
+
 
 export default function App() {
   return (
     <NavigationContainer>
       <MyTabs />
     </NavigationContainer>
+  );
+}
+
+function HomeIcon() {
+  return ( 
+  <View>
+    <Image source={require('./assets/house.png')}></Image>
+  </View>
+  );
+}
+
+function BarcodeIcon() {
+  return (
+    <View>
+      <Image source={require('./assets/barcode.png')}></Image>
+    </View>
   );
 }
