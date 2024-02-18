@@ -16,13 +16,13 @@ export function ScanScreen() {
 
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
-    onCodeScanned: (codes) => {
-      codes = codes.filter((value)=>(value.value != null));
-      console.log(`Scanned ${codes.length} codes!`);
-      if (codes.length > 0) {
-        setScannedData(codes[0].value);
-      } else {
-        setScannedData("");
+    onCodeScanned: (codes) => {{
+        let temp = {
+          "user": "Temp",
+          "barcode": {codes},
+          "servings": "1"
+        }
+        postMessage(temp, "localhost:3000/v1/food/");
       }
     }
   });
