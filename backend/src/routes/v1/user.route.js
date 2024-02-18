@@ -8,6 +8,6 @@ router.route('/').get(userController.getUsers);
 router.route('/:userId').get(userController.getUser)
 router.route('/:userId').patch(userController.updateUser)
 router.route('/:userId').delete(userController.deleteUser);
-router.route('/leaderboard').get(userController.getLeaderboard);
+router.route('/leaderboard/:n').get(userController.getLeaderboard);
 
 module.exports = router;

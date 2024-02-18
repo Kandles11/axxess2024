@@ -61,7 +61,7 @@ function bubbleSort(arr) {
   let len = arr.length;
   for (let i = 0; i < len - 1; i++) {
       for (let j = 0; j < len - 1 - i; j++) {
-          if (arr[j].score > arr[j + 1].score) {
+          if (arr[j].score < arr[j + 1].score) {
               // Swapping the elements
               let temp = arr[j];
               arr[j] = arr[j + 1];
@@ -73,13 +73,13 @@ function bubbleSort(arr) {
 }
 
 const getLeaderboard = catchAsync(async (req, res) => {
-  const { n } = req.query;
+  const { n } = req.params;
 
   try {
     const users = await User.find({}).exec();
     if (n) {
-      const sortedUsers = bubbleSort(sortedUsers);
-      res.status(200).json(sortedUsers.slice(0, n));
+      const sortedUsers = bubbleSort(users);
+      res.status(200).json(sortedUsers.slice(0, parseInt(n)));
     } else {
       res.status(200).json(users);
     }

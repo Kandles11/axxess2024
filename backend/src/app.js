@@ -40,10 +40,6 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-// jwt authentication
-// app.use(passport.initialize());
-// passport.use('jwt', jwtStrategy);
-
 // v1 api routes
 app.use('/v1', routes);
 
@@ -54,8 +50,5 @@ app.use((req, res, next) => {
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
-
-// // handle error
-// app.use(errorHandler);
 
 module.exports = app;
