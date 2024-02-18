@@ -138,7 +138,7 @@ async function updateUser(userId, food) {
         }
       }
     }
-    score /= Math.round(foods.length + 1 - zeros);
+    score = Math.round(score / (foods.length + 1 - zeros));
     todayScore.score = score;
     await User.updateOne({ _id: userId }, { todayScore: score }).exec();
     if (calories != 0) { 
