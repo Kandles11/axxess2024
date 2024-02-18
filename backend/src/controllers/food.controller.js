@@ -26,7 +26,7 @@ const viewFoodInfo = catchAsync(async (req, res) => {
         const score = (6 - data.product.nutriments["nova-group"]) * 
           nutriscoreMap[data.product.nutriscore_grade] / 2;
         res.status(200).json({
-          name: data.product.product_name,
+          name: data.product.brands + " " + data.product.product_name,
           calories: data.product.nutriments["energy-kcal"],
           score: score
         });
