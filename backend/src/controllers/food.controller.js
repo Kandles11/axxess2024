@@ -40,7 +40,7 @@ const viewFoodInfo = catchAsync(async (req, res) => {
             name = "Unknown"
           }
           if (calories_db) {
-            calories = calories_db;
+            calories = Math.round(calories_db);
           } else {
             calories = 0;
           }
