@@ -112,7 +112,7 @@ const Item = ({ title, score}: ItemProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    width: "80%",
+    width: "95%",
     backgroundColor: "white",
     padding: 20,
     marginVertical: 10,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardRow: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "white",
     padding: 20,
     marginVertical: 5,
