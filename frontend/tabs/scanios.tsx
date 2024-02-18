@@ -6,23 +6,27 @@ import { useAppState } from '@react-native-community/hooks';
 import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { onCodeScan } from './scancommon';
 
 
-export function ScanScreen() {
+export function ScanIosScreen() {
   const {hasPermission, requestPermission} = useCameraPermission();
   const [scannedData, setScannedData] = useState("");
 
   const device = useCameraDevice('back');
 
   const codeScanner = useCodeScanner({
-    codeTypes: ['qr', 'ean-13'],
+    codeTypes: ['ean-13'],
     onCodeScanned: (codes) => {{
-        let temp = {
-          "user": "Temp",
-          "barcode": {codes},
-          "servings": "1"
-        }
-        postMessage(temp, "localhost:3000/v1/food/");
+      codes = codes.filter((value)=>(value.value != null));
+      console.log(`Scanned ${codes.length} codes!`);
+      if (codes.length > 0) {
+        let value = codes[0].value;
+        setScannedData(value);
+        onCodeScan(value);
+      } else {
+        setScannedData("");
+      }
       }
     }
   });
