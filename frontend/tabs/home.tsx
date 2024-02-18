@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState, useEffect } from "react";
@@ -67,6 +67,8 @@ function StreakCard() {
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
       <Text style={styles.content}>10</Text>
+      <Image source={require('../assets/flame.png')} style={{maxWidth:"auto",height:"auto"}}></Image>
+
     </View>
   );
 }
