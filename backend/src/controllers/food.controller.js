@@ -67,7 +67,7 @@ const getFoodByUser = catchAsync(async (req, res) => {
 
   try {
     if (n) {
-      const food = await Food.find({ user: user }).limit(parseInt(n)).exec();
+      const food = await (await Food.find({ user: user })).reverse().limit(parseInt(n)).exec();
       res.status(200).json(food);
     } else {
       const food = await Food.find({ user: user }).exec();
