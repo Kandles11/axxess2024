@@ -62,7 +62,7 @@ function ScoreCard() {
 }
 
 function RecentFood({ recents }) {
-  console.log("recents " + recents);
+  console.log("recents", recents);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Recent Food</Text>
@@ -74,7 +74,7 @@ function RecentFood({ recents }) {
 }
 
 function ScoreBoard({ leaders }) {
-  console.log("leaders " + leaders);
+  console.log("leaders ",leaders);
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Top Friends</Text>
