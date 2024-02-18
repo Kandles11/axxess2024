@@ -51,7 +51,7 @@ export function HomeScreen() {
       });
   };
 
-  fetchData();
+  // fetchData();
 
   useFocusEffect(
     React.useCallback(() => {
