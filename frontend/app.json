@@ -45,9 +45,11 @@
       [
         "react-native-vision-camera",
         {
-          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera."
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+          "enableCodeScanner": true
         }
-      ]
+      ],
+      "./apns.plugin.js"
     ],
     "extra": {
       "eas": {

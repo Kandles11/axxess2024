@@ -1,35 +1,58 @@
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AutoFocus, Camera, CameraType } from 'expo-camera';
+import { useAppState } from '@react-native-community/hooks';
+// import { AutoFocus, Camera, CameraType } from 'expo-camera';
+import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
 
 export function ScanScreen() {
-  const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const {hasPermission, requestPermission} = useCameraPermission();
   const [scannedData, setScannedData] = useState("");
 
-  if (!permission || !permission.granted) {
+  const device = useCameraDevice('back');
+
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr', 'ean-13'],
+    onCodeScanned: (codes) => {
+      codes = codes.filter((value)=>(value.value != null));
+      console.log(`Scanned ${codes.length} codes!`);
+      if (codes.length > 0) {
+        setScannedData(codes[0].value);
+      } else {
+        setScannedData("");
+      }
+    }
+  });
+
+  const isFocused = useIsFocused();
+  const appState = useAppState();
+  const isActive = isFocused && appState === "active";
+
+  if (!hasPermission) {
     requestPermission();
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>No permission to access camera!</Text>
+        <Text style={styles.text}>SnackIt needs permission to access your camera.</Text>
       </View>
     );
   }
 
-  function toggleCameraType() {
-    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  if (device == null) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>SnackIt was unable to find your camera.</Text>
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} autoFocus={AutoFocus.on} onBarCodeScanned={(result)=>setScannedData(result.data)}>
+      <Camera style={styles.camera} device={device} isActive={isActive} codeScanner={codeScanner}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
+          <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>{scannedData}</Text>
           </TouchableOpacity>
         </View>
