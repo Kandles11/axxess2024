@@ -4,10 +4,10 @@ const Food = require('../models/food.model');
 const nutriscoreMap = {'a': 5, 'b': 4, 'c': 3, 'd': 2, 'e': 1};
 
 const createFood = catchAsync(async (req, res) => {
-  const { user, barcode, calories, score } = req.body;
+  const { user, barcode, name, calories, score } = req.body;
 
   try {
-    const food = Food.create({ user: user, upc: barcode, calories: calories, score: score });
+    const food = Food.create({ user: user, upc: barcode, name: name, calories: calories, score: score });
     res.status(200).json(food);
   } catch (error) {
     res.status(400).json({ error: error.message });
