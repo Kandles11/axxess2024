@@ -7,11 +7,14 @@ import { Camera, useCameraPermission, useCameraDevice, useCodeScanner } from 're
 import { useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { onCodeScan } from './scancommon';
+import FoodView from './foodview';
 
 
 export function ScanIosScreen() {
   const {hasPermission, requestPermission} = useCameraPermission();
   const [scannedData, setScannedData] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [foodInfo, setFoodInfo] = useState({ name: "", calories: 0, score: 0 });
 
   const device = useCameraDevice('back');
 
@@ -23,7 +26,8 @@ export function ScanIosScreen() {
       if (codes.length > 0) {
         let value = codes[0].value;
         setScannedData(value);
-        onCodeScan(value);
+        onCodeScan(value, setFoodInfo);
+        setIsModalVisible(true);
       } else {
         setScannedData("");
       }
@@ -31,9 +35,14 @@ export function ScanIosScreen() {
     }
   });
 
+  const onModalClose = () => {
+    setIsModalVisible(false);
+    setScannedData("");
+  }
+
   const isFocused = useIsFocused();
   const appState = useAppState();
-  const isActive = isFocused && appState === "active";
+  const isActive = isFocused && appState === "active" && !isModalVisible;
 
   if (!hasPermission) {
     requestPermission();
@@ -61,6 +70,7 @@ export function ScanIosScreen() {
           </TouchableOpacity>
         </View>
       </Camera>
+      <FoodView isVisible={isModalVisible} data={scannedData} info={foodInfo} onClose={onModalClose} />
     </View>
   );
 }

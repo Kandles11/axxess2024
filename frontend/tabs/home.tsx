@@ -41,18 +41,18 @@ export function HomeScreen() {
   useEffect(() => {
     fetchData();
 
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        // Tab is visible again, refresh data
-        fetchData();
-      }
-    };
+    // const handleVisibilityChange = () => {
+    //   if (!document.hidden) {
+    //     // Tab is visible again, refresh data
+    //     fetchData();
+    //   }
+    // };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    // document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    }
+    // return () => {
+    //   document.removeEventListener('visibilitychange', handleVisibilityChange);
+    // }
   }, []);
 
   return (
