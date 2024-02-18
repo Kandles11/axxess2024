@@ -129,11 +129,13 @@ async function updateUser(userId, food) {
     let zeros = 0;
     for (let i = 0; i < foods.length; i++) {
       const storedFood = await Food.findById(foods[i]).exec();
-      score += storedFood.score;
-      if (storedFood.score == 0) {
-        zeros += 1;
-      } else {
+      if (storedFood) {
         score += storedFood.score;
+        if (storedFood.score == 0) {
+          zeros += 1;
+        } else {
+          score += storedFood.score;
+        }
       }
     }
     score /= Math.round(foods.length + 1 - zeros);
