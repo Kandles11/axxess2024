@@ -44,7 +44,8 @@ export function HomeScreen() {
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
         <View style={{margin: 10 , flexDirection: "row", justifyContent: "center"}}>
-          <ScoreCard /> <StreakCard/>
+          <ScoreCard />
+          <StreakCard />
         </View>
         <RecentFood recents={recents} />
         <ScoreBoard leaders={leaders} />
