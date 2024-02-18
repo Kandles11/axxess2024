@@ -1,4 +1,4 @@
-rootProject.name = 'foodHelp'
+rootProject.name = 'SnackIt'
 
 dependencyResolutionManagement {
   versionCatalogs {

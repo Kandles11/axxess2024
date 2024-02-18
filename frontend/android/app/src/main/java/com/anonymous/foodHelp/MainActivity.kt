@@ -1,4 +1,4 @@
-package com.anonymous.foodHelp
+package com.anonymous.SnackIt
 
 import android.os.Build
 import android.os.Bundle

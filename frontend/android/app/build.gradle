@@ -83,9 +83,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.foodHelp'
+    namespace 'com.anonymous.SnackIt'
     defaultConfig {
-        applicationId 'com.anonymous.foodHelp'
+        applicationId 'com.anonymous.SnackIt'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

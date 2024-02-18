@@ -1,4 +1,4 @@
-package com.anonymous.foodHelp
+package com.anonymous.SnackIt
 
 import android.app.Application
 import android.content.res.Configuration
