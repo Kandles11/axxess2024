@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema(
     history: {
       dailyScore: {
         date: {
-          type: Date,
+          type: String,
           required: true,
         },
         score: {
