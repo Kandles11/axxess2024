@@ -39,7 +39,8 @@ const getFood = catchAsync(async (req, res) => {
 });
 
 const getFoodByUser = catchAsync(async (req, res) => {
-  const { user, n } = req.body;
+  const { user } = req.params;
+  const { n } = req.query;
 
   try {
     if (n) {
