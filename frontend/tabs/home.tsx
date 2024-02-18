@@ -64,7 +64,7 @@ export function HomeScreen() {
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>Welcome,</Text>
           <Text style={{ fontSize: 36, fontWeight: "bold" }}>Mason!</Text>
         </View>
-        <View style={{margin: 10 , flexDirection: "row", justifyContent: "center"}}>
+        <View style={{margin: 5 , flexDirection: "row", justifyContent: "center"}}>
           <ScoreCard />
           <StreakCard />
         </View>
@@ -88,7 +88,7 @@ function StreakCard() {
   return (
     <View style={styles.cardRow}>
       <Text style={styles.title}>Streak</Text>
-      <Text style={styles.content}>10</Text>
+      <Text style={styles.content}>2</Text>
       <Image
         source={require("../assets/flame.png")}
         style={{marginLeft:10, marginBottom: 0 }}
@@ -117,7 +117,7 @@ function ScoreBoard({ leaders }) {
       <Text style={styles.title}>Top Friends</Text>
       {leaders &&
         leaders.map((item) => (
-          <Item key={item.id} title={item.name} score={item.score} />
+          <Item key={item.id} title={item.name} score={item.todayScore} />
         ))}
     </View>
   );
@@ -131,7 +131,7 @@ const Item = ({ title, score }: ItemProps) => (
     <View
       style={{
         backgroundColor:
-          score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969",
+          score == 0 ? "#000000": score <= 3 ? "#D22B2B" : score <= 6 ? "#E49B0F" : "#097969",
         borderRadius: 20,
         marginLeft: "auto",
         padding: 20,
@@ -177,13 +177,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: "600",
     marginBottom: 10,
   },
   content: {
     marginLeft: "auto",
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: "600",
   },
   item: {
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
   accent: {
     borderRadius: 20,
     marginLeft: "auto",
-    padding: 20,
+    padding: 5,
   },
   accentText: {
     color: "white",
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
   },
 });
